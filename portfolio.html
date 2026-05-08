@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramu Pal - Mobile App Portfolio | Flutter & Android Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1F4E78;
+            --secondary: #2E75B6;
+            --accent: #00B4D8;
+            --success: #00A676;
+            --warning: #FF8C42;
+            --dark: #0F1419;
+            --light: #F5F7FA;
+            --text: #2C3E50;
+            --border: #E0E6ED;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 3px solid transparent;
+            padding-bottom: 5px;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+            border-bottom-color: var(--accent);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* INTRO SECTION */
+        .intro {
+            background: white;
+            padding: 60px 40px;
+            margin: 40px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            max-width: 900px;
+        }
+
+        .intro h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        /* PROJECTS SECTION */
+        .projects-section {
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 50px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* PROJECT GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 25px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .project-tagline {
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .project-body {
+            padding: 30px 25px;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item strong {
+            display: block;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-item span {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .tech-stack {
+            margin-bottom: 20px;
+        }
+
+        .tech-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: #f0f4f8;
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #d0dce6;
+        }
+
+        .links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* HIGHLIGHTS SECTION */
+        .highlights-section {
+            background: white;
+            padding: 60px 40px;
+            margin: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .highlight-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafb, #f0f4f8);
+            border-left: 4px solid var(--secondary);
+            border-radius: 8px;
+        }
+
+        .highlight-number {
+            font-size: 2rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .highlight-text {
+            color: var(--text);
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .header-stats {
+                gap: 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .intro {
+                padding: 40px 25px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* SCROLL ANIMATION */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card {
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <h1>Ramu Pal</h1>
+        <p>Senior Flutter Developer | Mobile App Architect</p>
+        <div class="header-stats">
+            <div class="stat">
+                <span class="stat-number">10+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Apps Delivered</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">1M+</span>
+                <span class="stat-label">Downloads</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">25%</span>
+                <span class="stat-label">Crash Reduction</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <ul>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#highlights">Highlights</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- INTRO -->
+        <section class="intro">
+            <h2>Welcome to My Portfolio</h2>
+            <p>
+                I'm a Senior Flutter and Android Native developer with 10+ years of experience building production-grade mobile applications. 
+                My expertise spans the complete application lifecycle—from architecture and development through deployment and ongoing support.
+            </p>
+            <p>
+                Specializing in <strong>GCP Cloud integration</strong>, <strong>enterprise authentication (Okta, OAuth 2.0)</strong>, and <strong>Google AI Services</strong>, 
+                I build scalable, secure mobile applications that serve millions of users. Below you'll find a curated selection of my most impactful projects.
+            </p>
+        </section>
+    </div>
+
+    <!-- PROJECTS SECTION -->
+    <section id="portfolio" class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <div class="projects-grid">
+                <!-- PROJECT 1: SmartBike -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🚴</div>
+                        <div class="project-name">SmartBike</div>
+                        <div class="project-tagline">Bike Sharing & Mobility Solution</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            A production mobility app enabling users to discover bikes via GPS, unlock via QR code, track rides in real-time, and process secure payments. 
+                            Serves 1M+ users with seamless experience.
+                        </p>
+                        
+                        <div class="project-stats">
+                            <div class="stat-item">
+                                <strong>1M+</strong>
+                                <span>Downloads</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>9.4K+</strong>
+                                <span>Reviews</span>
+                            </div>
+                        </div>
+
+                        <div class="tech-stack">
+                            <span class="tech-label">Tech Stack:</span>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Flutter</span>
+                                <span class="tech-tag">Google Maps API</span>
+                                <span class="tech-tag">GPS/Location</span>
+                                <span class="tech-tag">Payment Gateway</span>
+                                <span class="tech-tag">FCM</span>
+                                <span class="tech-tag">GCP Cloud</span>
+                            </div>
+                        </div>
+
+                        <div class="links">
+                            <a href="https://play.google.com/store/apps/details?id=com.production.smartbikemobility.customer" target="_blank" class="btn btn-primary">
+                                🔗 Play Store
+                            </a>
+                            <a href="https://smartbikemobility.com" target="_blank" class="btn btn-secondary">
+                                🌐 Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: Workex -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">💼</div>
+                        <div class="project-name">Workex</div>
+                        <div class="project-tagline">Job Search & HRMS Platform</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            A comprehensive HR platform connecting job seekers with employers. Features advanced job search, staff hiring, profile management, 
+                            notifications, and multi-role workflows with enterprise SSO and AI-powered recommendations.
+                        </p>
+                        
+                        <div class="project-stats">
+                            <div class="stat-item">
+                                <strong>50K+</strong>
+                                <span>Active Users</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>5K+</strong>
+                                <span>Companies</span>
+                            </div>
+                        </div>
+
+                        <div class="tech-stack">
+                            <span class="tech-label">Tech Stack:</span>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Flutter</span>
+                                <span class="tech-tag">GCP Firestore</span>
+                                <span class="tech-tag">Okta OAuth 2.0</span>
+                                <span class="tech-tag">Gemini API</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">REST APIs</span>
+                            </div>
+                        </div>
+
+                        <div class="links">
+                            <a href="https://play.google.com/store/apps/details?id=com.workexjobapp" target="_blank" class="btn btn-primary">
+                                🔗 Play Store
+                            </a>
+                            <a href="https://workex.app" target="_blank" class="btn btn-secondary">
+                                🌐 Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3: Farron Research -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">📊</div>
+                        <div class="project-name">Farron Research</div>
+                        <div class="project-tagline">Field Research & Survey App</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Enterprise field research platform enabling data collection, survey management, offline-first workflows, 
+                            location-based triggers, and real-time cloud synchronization for advanced analytics and reporting.
+                        </p>
+                        
+                        <div class="project-stats">
+                            <div class="stat-item">
+                                <strong>99.9%</strong>
+                                <span>Uptime</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>1000+</strong>
+                                <span>Surveys</span>
+                            </div>
+                        </div>
+
+                        <div class="tech-stack">
+                            <span class="tech-label">Tech Stack:</span>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Flutter</span>
+                                <span class="tech-tag">GCP Cloud</span>
+                                <span class="tech-tag">Firestore</span>
+                                <span class="tech-tag">BLoC</span>
+                                <span class="tech-tag">SQLite</span>
+                                <span class="tech-tag">Google Maps</span>
+                            </div>
+                        </div>
+
+                        <div class="links">
+                            <a href="https://play.google.com/store/apps/details?id=com.jaarvis.fr" target="_blank" class="btn btn-primary">
+                                🔗 Play Store
+                            </a>
+                            <a href="https://farronresearch.com" target="_blank" class="btn btn-secondary">
+                                🌐 Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 4: Staffbooks -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">👥</div>
+                        <div class="project-name">Staffbooks</div>
+                        <div class="project-tagline">Staff Management & Scheduling</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            UK-based staff management platform for shift scheduling, team communication, and automated attendance tracking using BLE technology. 
+                            Features enterprise Okta SSO, secure OAuth access, and AI-powered shift optimization.
+                        </p>
+                        
+                        <div class="project-stats">
+                            <div class="stat-item">
+                                <strong>20K+</strong>
+                                <span>Users</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>98%</strong>
+                                <span>Auth Success</span>
+                            </div>
+                        </div>
+
+                        <div class="tech-stack">
+                            <span class="tech-label">Tech Stack:</span>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Flutter</span>
+                                <span class="tech-tag">BLE</span>
+                                <span class="tech-tag">Bluetooth Printing</span>
+                                <span class="tech-tag">Okta SSO</span>
+                                <span class="tech-tag">GCP Cloud Run</span>
+                                <span class="tech-tag">Firebase</span>
+                            </div>
+                        </div>
+
+                        <div class="links">
+                            <a href="https://play.google.com/store/apps/details?id=com.adverticoLTD.staffbooks" target="_blank" class="btn btn-primary">
+                                🔗 Play Store
+                            </a>
+                            <a href="https://staffbooks.co.uk" target="_blank" class="btn btn-secondary">
+                                🌐 Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGHLIGHTS SECTION -->
+    <section id="highlights" class="highlights-section">
+        <h2 class="section-title">Key Achievements</h2>
+        <div class="highlights-grid">
+            <div class="highlight-item">
+                <div class="highlight-number">10+</div>
+                <div class="highlight-text">Years of professional mobile development experience</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">15+</div>
+                <div class="highlight-text">Production-ready apps successfully delivered</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">1M+</div>
+                <div class="highlight-text">Total downloads across apps on Play Store</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">25%</div>
+                <div class="highlight-text">Crash rate reduction through optimization</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">30%</div>
+                <div class="highlight-text">Average load time improvement achieved</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">3+</div>
+                <div class="highlight-text">Developers mentored and guided through careers</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">5+</div>
+                <div class="highlight-text">Enterprise clients with Okta authentication</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">99.9%</div>
+                <div class="highlight-text">Uptime achieved on GCP cloud infrastructure</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <h3>Let's Connect</h3>
+            <p style="margin: 15px 0;">I'm passionate about building scalable mobile applications. Let's discuss your next project!</p>
+            
+            <div class="contact-links">
+                <a href="mailto:ramupal2613@gmail.com">📧 Email</a>
+                <a href="tel:+919429533223">📱 Phone</a>
+                <a href="https://linkedin.com/in/ramu-pal-b24277a8" target="_blank">💼 LinkedIn</a>
+                <a href="https://github.com/brinfotech1407" target="_blank">💻 GitHub</a>
+            </div>
+
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.9rem;">
+                <p>📍 Gujarat, India | 🕐 IST Timezone</p>
+                <p style="margin-top: 10px; opacity: 0.8;">Available for remote contract opportunities</p>
+                <p style="margin-top: 15px; opacity: 0.7;">© 2026 Ramu Pal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
